@@ -14,7 +14,7 @@
 
 <style scoped>
     .header {
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
         display: flex;
         justify-content: space-between;
     }

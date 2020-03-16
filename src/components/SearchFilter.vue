@@ -1,11 +1,15 @@
 <template>
   <div class="search-filter">
-    <div class="search">
+    <div class="search" v-if="!isDetail">
       <ion-icon name="search-outline"></ion-icon>
       <input type="text" placeholder="Search for a country...">
     </div>
-    <div class="filter">
+    <div class="filter" v-if="!isDetail">
       <p>Filter by Region</p>
+    </div>
+    <div class="dark-mode" v-if="isDetail">
+      <ion-icon name="arrow-back-outline"></ion-icon> 
+      <p>Back</p>           
     </div>
   </div>
 </template>
@@ -13,9 +17,9 @@
 <script>
 export default {
   name: 'SearchFilter',
-  components: {
-
-  }
+  props: [
+    'isDetail'
+  ]
 }
 </script>
 
@@ -27,9 +31,9 @@ export default {
   .search {
     display: flex;
     align-items: center;
-    padding: 20px 20px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
-    border-radius: 3px;
+    padding: 15px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
   }
 
   .search ion-icon {
