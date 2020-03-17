@@ -7,7 +7,7 @@
     <div class="filter" v-if="!isDetail">
       <p>Filter by Region</p>
     </div>
-    <div class="dark-mode" v-if="isDetail">
+    <div class="back-button" v-if="isDetail" @click="$emit('ctrDetail')">
       <ion-icon name="arrow-back-outline"></ion-icon> 
       <p>Back</p>           
     </div>
@@ -47,5 +47,24 @@ export default {
     background: white;
     font-size: 14px;
     margin-left: 18px;
+  }
+
+  .back-button {
+    box-shadow: 0 0 10px rgba(0,0,0,0.13);
+    width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .back-button p {
+    margin-left: 8px;
+  }
+
+  .back-button ion-icon {
+    font-size: 20px;
   }
 </style>

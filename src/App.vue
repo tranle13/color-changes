@@ -53,4 +53,9 @@ export default {
   input, button {
     font-family: 'Nunito Sans', sans-serif;
   }
+
+  button {
+    cursor: pointer;
+    outline: none;
+  }
 </style>

@@ -2,7 +2,7 @@
     <div class='country-wrap' v-if="countries">
         <button class='country' v-bind:key='country.numericCode' v-for='country in countries' @click="$emit('detail', country)">
             <img v-bind:src='country.flag' alt='flag'/>
-            <h3>{{country.name}}</h3>
+            <h2>{{country.name}}</h2>
             <p><span>Population:</span> {{country.population}}</p>
             <p><span>Region:</span> {{country.region}}</p>
             <p><span>Capital:</span> {{country.capital}}</p>
@@ -36,6 +36,8 @@ export default {
         box-shadow: 0 0 18px rgba(0, 0, 0, 0.08);
         border-radius: 5px;
         overflow: hidden;
+        border: none;
+        padding: 0;
         /* margin: 0 3% 3% 0; */
         /* cursor: pointer; */
     }
@@ -47,6 +49,7 @@ export default {
     }
 
     .country p {
+        font-size: 15px;
         margin: 7px 20px;
         text-align: left;
     }
@@ -55,7 +58,7 @@ export default {
         margin-bottom: 45px;
     }
 
-    .country h3 {
+    .country h2 {
         margin: 17px 20px;
         text-align: left;
         font-weight: 900;

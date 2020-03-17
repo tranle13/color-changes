@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <SearchFilter v-bind:isDetail="isDetail"/>
+    <SearchFilter v-bind:isDetail="isDetail" v-on:ctrDetail="countryDetail"/>
     <div class="countries component-padding">
       <Country v-bind:countries='countries' v-if="!isDetail" v-on:detail="countryDetail"/>
-      <CountryDetail v-if="isDetail"/>
+      <CountryDetail v-bind:isDetail="isDetail" v-bind:selectedCountry="chosenCountry" v-bind:countryCode="countriesCodes"/>
     </div>
   </div>
 </template>
@@ -23,23 +23,32 @@ export default {
     CountryDetail
   },
   methods: {
-    countryDetail() {
+    countryDetail(chosenCountry) {
       this.isDetail = !this.isDetail;
+      this.chosenCountry = chosenCountry;
     }
   },
   data() {
     return {
       countries: [],
-      isDetail: false
+      countriesCodes: {},
+      isDetail: false,
+      chosenCountry: {},
     }
   },
   created() {
     axios.get('https://restcountries.eu/rest/v2/all')
-    .then(res => {this.countries = res.data; console.log(this.countries)})
+    .then(res => {
+      this.countries = res.data;
+      this.countries.forEach(country => this.countriesCodes[country.alpha3Code] = country.name);
+    })
     .catch(err => console.log(err));
   }
 }
 </script>
 
 <style scoped>
+  .countries {
+    display: flex;
+  }
 </style>
