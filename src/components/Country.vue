@@ -1,9 +1,10 @@
 <template>
     <div class='country-wrap' v-if="countries">
-        <button class='country' v-bind:key='country.numericCode' v-for='country in countries' @click="$emit('detail', country)">
-            <img v-bind:src='country.flag' alt='flag'/>
-            <h2>{{country.name}}</h2>
-            <p><span>Population:</span> {{country.population}}</p>
+        <button
+        @click="toDetail(country.name, countryCodes)" class='country' v-bind:key='country.numericCode' v-for='country in countries'>
+            <div v-bind:style="{backgroundImage: `url(${country.flag})`}" alt='flag' class="image"/>
+            <h1>{{country.name}}</h1>
+            <p><span>Population:</span> {{localeString(country.population)}}</p>
             <p><span>Region:</span> {{country.region}}</p>
             <p><span>Capital:</span> {{country.capital}}</p>
         </button>
@@ -11,41 +12,51 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter)
+
 export default {
     name: 'Country',
     props: [
-        'countries'
-    ]
+        "countries",
+        "countryCodes"
+    ],
+    methods: {
+      toDetail(name, codes) {
+          this.$router.push({ name: "Detail", params: {name: name, codes: codes}})
+      },
+      localeString(num) {
+          return num.toLocaleString();
+      }
+    }
 }
 </script>
 
 <style scoped>
     .country-wrap {
-        /* display: flex; */
-        /* flex-flow: row wrap;
-        justify-content: space-between;
-        align-content: center; */
         display: grid;
-        grid-template-columns: repeat(5, 0.5fr);
+        grid-template-columns: repeat(5, .5fr);
         grid-gap: 65px;
+        justify-content: center;
     }
     .country {
-        /* height: 325px; */
-        /* width: 20%; */
         background: white;
         box-shadow: 0 0 18px rgba(0, 0, 0, 0.08);
         border-radius: 5px;
         overflow: hidden;
         border: none;
         padding: 0;
-        /* margin: 0 3% 3% 0; */
-        /* cursor: pointer; */
     }
 
-    .country img {
+    .country .image {
         width: 100%;
         height: 160px;
-        object-fit: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-top: -25px;
+        background-position: -2px 5px;
     }
 
     .country p {
@@ -58,7 +69,7 @@ export default {
         margin-bottom: 45px;
     }
 
-    .country h2 {
+    .country h1 {
         margin: 17px 20px;
         text-align: left;
         font-weight: 900;

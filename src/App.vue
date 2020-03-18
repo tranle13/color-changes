@@ -1,11 +1,9 @@
 <template>
-  <div id="app">
-    <Header />
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <router-view/>
+  <div id="app" :class="isDarkMode ? 'dark' : 'light'">
+    <Header :class="isDarkMode ? 'dark' : 'light'" v-on:changeColorMode="changeColorMode" v-bind:isDarkMode="isDarkMode"/>
+    <!-- <router-link to="/"/> -->
+    <!-- <router-view/> -->
+    <router-view isDarkMode="isDarkMode"></router-view>
   </div>
 </template>
 
@@ -16,6 +14,17 @@ export default {
   name: 'App',
   components: {
     Header
+  },
+  methods: {
+    changeColorMode() {
+      this.isDarkMode = !this.isDarkMode
+      localStorage.setItem("darkTheme", this.isDarkMode);
+    }
+  },
+  data() { 
+    return {
+      isDarkMode: false,
+    }
   }
 }
 </script>
@@ -25,8 +34,28 @@ export default {
     font-family: 'Nunito Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
+    min-height: 100vh;
+    padding-bottom: 100px;
+  }
+
+  .dark {
+    background: #202d37;
+    color: white;
+  }
+
+  .light {
+    background: #fafafa;
+    color: #111517;
+  }
+
+  .dark-element {
+    background: #2b3945;
+    color: white;
+  }
+
+  .light-element {
+    background: white;
+    color: #111517;
   }
 
   #nav {
@@ -52,10 +81,39 @@ export default {
 
   input, button {
     font-family: 'Nunito Sans', sans-serif;
+    outline: none;
   }
 
   button {
     cursor: pointer;
-    outline: none;
+  }
+
+  .style-chooser .vs__search::placeholder,
+  .style-chooser .vs__dropdown-toggle,
+  .style-chooser .vs__dropdown-menu {
+    background: white;
+    border: none;
+    color: #394066;
+    text-transform: lowercase;
+    font-variant: small-caps;
+  }
+
+  .style-chooser {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+  }
+
+  .style-chooser .vs__dropdown-toggle {
+    height: 50px;
+    width: 170px;
+  }
+
+  .style-chooser .vs__selected-option {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  .style-chooser .vs__clear,
+  .style-chooser .vs__open-indicator {
+    fill: #394066;
   }
 </style>

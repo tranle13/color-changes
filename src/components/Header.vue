@@ -1,9 +1,9 @@
 <template>
-    <header class="header component-padding">
-        <h3>Where in the world?</h3>
-        <div class="dark-mode">
+    <header class="header component-padding" :class="isDarkMode ? 'dark-element' : 'light-element'">
+        <h2>Where in the world?</h2>
+        <div class="dark-mode" @click="$emit('changeColorMode')">
             <ion-icon name="moon-outline"></ion-icon> 
-            <p>Dark Mode</p>           
+            <p>{{isDarkMode ? "Bright Mode" : "Dark Mode"}}</p>           
         </div>
         <!-- <button class="dark-mode-btn">
             <ion-icon name="moon-outline"></ion-icon>
@@ -11,6 +11,16 @@
         </button> -->
     </header>
 </template>
+
+<script>
+export default {
+    name: "Header",
+    props: [
+        "isDarkMode"
+    ]
+
+}
+</script>
 
 <style scoped>
     .header {
