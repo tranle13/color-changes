@@ -37,15 +37,6 @@ describe("CountryDetail", () => {
             expect(texts.at(i).text()).toBe(`${key}: ${value}`)
         })
 
-        // expect(texts.at(0).text()).toBe(`Native Name: ${json.name}`)
-        // expect(texts.at(1).text()).toBe(`Population: ${json.population.toLocaleString()}`)
-        // expect(texts.at(2).text()).toBe(`Region: ${json.region}`)
-        // expect(texts.at(3).text()).toBe(`Sub Region: ${json.subregion}`)
-        // expect(texts.at(4).text()).toBe(`Capital: ${json.capital}`)
-        // expect(texts.at(5).text()).toBe(`Top Level Domain: ${json.topLevelDomain[0]}`)
-        // expect(texts.at(6).text()).toBe(`Currencies: ${currencies}`)
-        // expect(texts.at(7).text()).toBe(`Languages: ${languages}`)
-
         const buttons = wrapper.findAll("button")
         const borders = json.borders
 

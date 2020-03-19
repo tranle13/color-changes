@@ -70,6 +70,7 @@ export default {
   .search ion-icon {
     --ionicon-stroke-width: 60px;
     font-size: 19px;
+    visibility: visible;
   }
 
   .icon-light {

@@ -16,7 +16,7 @@ export default {
     ],
     methods: {
         changeIcon() {
-            return this.isDarkMode ? "moon" : "moon-outline"
+            return this.isDarkMode ? "sunny" : "moon-outline"
         }
     }
 

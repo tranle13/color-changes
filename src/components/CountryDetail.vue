@@ -53,7 +53,7 @@ export default {
         getData() {
             return this.country === undefined ? [] : this.country.borders
         },
-    },
+    }
 }
 </script>
 
