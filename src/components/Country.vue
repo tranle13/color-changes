@@ -29,12 +29,12 @@ export default {
         "isDarkMode"
     ],
     methods: {
-      toDetail(name, codes) {
-          this.$router.push({ name: "Detail", params: {name: name, codes: codes}})
-      },
-      localeString(num) {
-          return num.toLocaleString();
-      }
+        toDetail(name, codes) {
+            this.$router.push({ name: "Detail", params: {name: name, codes: codes}})
+        },
+        localeString(num) {
+            return num.toLocaleString();
+        }
     }
 }
 </script>
