@@ -1,16 +1,27 @@
 <template>
-    <header class="header component-padding">
-        <h3>Where in the world?</h3>
-        <div class="dark-mode">
-            <ion-icon name="moon-outline"></ion-icon> 
-            <p>Dark Mode</p>           
+    <header class="header component-padding" :class="isDarkMode ? 'dark-element' : 'light-element'">
+        <h2>Where in the world?</h2>
+        <div class="dark-mode" @click="$emit('changeColorMode')">
+            <ion-icon :name=changeIcon()></ion-icon> 
+            <p>{{isDarkMode ? "Bright Mode" : "Dark Mode"}}</p>           
         </div>
-        <!-- <button class="dark-mode-btn">
-            <ion-icon name="moon-outline"></ion-icon>
-            Dark Mode
-        </button> -->
     </header>
 </template>
+
+<script>
+export default {
+    name: "Header",
+    props: [
+        "isDarkMode"
+    ],
+    methods: {
+        changeIcon() {
+            return this.isDarkMode ? "sunny" : "moon-outline"
+        }
+    }
+
+}
+</script>
 
 <style scoped>
     .header {
@@ -30,18 +41,10 @@
     .dark-mode p {
         margin-left: 5px;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .dark-mode ion-icon {
         --ionicon-stroke-width: 50px;
     }
-
-    /* .dark-mode-btn {
-        border: none;
-        background: none;
-        font-family: 'Nunito Sans', sans-serif;
-        font-size: 13px;
-        font-weight: 600;
-    } */
 </style>

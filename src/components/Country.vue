@@ -1,9 +1,14 @@
 <template>
     <div class='country-wrap' v-if="countries">
-        <button class='country' v-bind:key='country.numericCode' v-for='country in countries' @click="$emit('detail', country)">
-            <img v-bind:src='country.flag' alt='flag'/>
-            <h3>{{country.name}}</h3>
-            <p><span>Population:</span> {{country.population}}</p>
+        <button
+        :class="isDarkMode ? 'dark-element' : 'light-element'"
+        @click="toDetail(country.name, countryCodes)" 
+        class='country' 
+        v-bind:key="country.numericCode"
+        v-for='country in countries'>
+            <div v-bind:style="{backgroundImage: `url(${country.flag})`}" alt='flag' class="image"/>
+            <h1>{{country.name}}</h1>
+            <p><span>Population:</span> {{localeString(country.population)}}</p>
             <p><span>Region:</span> {{country.region}}</p>
             <p><span>Capital:</span> {{country.capital}}</p>
         </button>
@@ -11,42 +16,57 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter)
+
 export default {
     name: 'Country',
     props: [
-        'countries'
-    ]
+        "countries",
+        "countryCodes",
+        "isDarkMode"
+    ],
+    methods: {
+        toDetail(name, codes) {
+            this.$router.push({ name: "Detail", params: {name: name, codes: codes}})
+        },
+        localeString(num) {
+            return num.toLocaleString();
+        }
+    }
 }
 </script>
 
 <style scoped>
     .country-wrap {
-        /* display: flex; */
-        /* flex-flow: row wrap;
-        justify-content: space-between;
-        align-content: center; */
+        width: 100%;
         display: grid;
-        grid-template-columns: repeat(5, 0.5fr);
+        grid-template-columns: repeat(5, .5fr);
         grid-gap: 65px;
+        justify-content: center;
     }
     .country {
-        /* height: 325px; */
-        /* width: 20%; */
-        background: white;
+        min-height: 370px;
         box-shadow: 0 0 18px rgba(0, 0, 0, 0.08);
         border-radius: 5px;
         overflow: hidden;
-        /* margin: 0 3% 3% 0; */
-        /* cursor: pointer; */
+        border: none;
+        padding: 0;
     }
 
-    .country img {
+    .country .image {
         width: 100%;
         height: 160px;
-        object-fit: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-top: -25px;
+        background-position: 50% 50%;
     }
 
     .country p {
+        font-size: 15px;
         margin: 7px 20px;
         text-align: left;
     }
@@ -55,7 +75,7 @@ export default {
         margin-bottom: 45px;
     }
 
-    .country h3 {
+    .country h1 {
         margin: 17px 20px;
         text-align: left;
         font-weight: 900;
