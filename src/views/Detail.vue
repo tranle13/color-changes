@@ -1,23 +1,30 @@
 <template>
   <div class="country-detail">
-    <SearchFilterBack v-bind:isDetail=true v-on:ctrDetail="countryDetail" v-on:search="search"/>
-    <CountryDetail v-bind:countryCodes="countryCodes" v-bind:country="country[0]"/>
+    <Back v-bind:isDarkMode="isDark"/>
+    <CountryDetail 
+      v-bind:countryCodes="countryCodes" 
+      v-bind:country="country[0]" 
+      v-on:nearbyCountry="nearbyCountry"
+      v-bind:isDarkMode="isDark"/>
   </div>
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from "vue";
 import VueRouter from 'vue-router';
-import SearchFilterBack from "../components/SearchFilterBack";
+import Back from "@/components/Back";
 import CountryDetail from "../components/CountryDetail";
 import axios from "axios";
 
 Vue.use(VueRouter)
 
 export default {
-  name: 'Detail',
+  name: "Detail",
+  props: [
+    "isDark"
+  ],
   components: {
-    SearchFilterBack,
+    Back,
     CountryDetail
   },
   data() {
@@ -43,6 +50,13 @@ export default {
     .catch(err => console.log(err))
 
     window.scrollTo(0,0)
+  },
+  methods: {
+    nearbyCountry(name) {
+      axios.get(`https://restcountries.eu/rest/v2/name/${name}?fullText=true`)
+      .then(res => {this.country = res.data})
+      .catch(err => console.log(err));
+    }
   }
 }
 </script>

@@ -4,6 +4,7 @@ import router from './router'
 import 'vue-select/dist/vue-select.css';
 
 Vue.config.productionTip = false
+Vue.config.ignoredElements = ['ion-icon'];
 
 new Vue({
   router,

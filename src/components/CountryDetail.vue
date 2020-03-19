@@ -1,27 +1,33 @@
 <template>
     <div class="country-detail component-padding">
-        <img v-bind:src='country.flag' alt='flag'/>
+        <img :src="country === undefined ? '' : country.flag" alt="flag"/>
         <div>
-            <h2 class="country-name">{{country.name}}</h2>
+            <h2 class="country-name">{{country === undefined ? '' : country.name}}</h2>
             <div class="details">
                 <div>
-                    <p><span>Native Name:</span> {{country.nativeName}}</p>
-                    <p><span>Population:</span> {{country.population.toLocaleString()}}</p>
-                    <p><span>Region:</span> {{country.region}}</p>
-                    <p><span>Sub Region:</span> {{country.subregion}}</p>
-                    <p><span>Capital:</span> {{country.capital}}</p>
+                    <p><span>Native Name:</span> {{country === undefined ? '' : country.nativeName}}</p>
+                    <p><span>Population:</span> {{country === undefined ? '' : country.population.toLocaleString()}}</p>
+                    <p><span>Region:</span> {{country === undefined ? '' : country.region}}</p>
+                    <p><span>Sub Region:</span> {{country === undefined ? '' : country.subregion}}</p>
+                    <p><span>Capital:</span> {{country === undefined ? '' : country.capital}}</p>
                 </div>
                 <div>
-                    <p><span>Top Level Domain:</span> {{country.topLevelDomain[0]}}</p>
-                    <p><span>Currencies:</span> {{getNames(country.currencies)}}</p>
-                    <p><span>Languages:</span> {{getNames(country.languages)}}</p>
+                    <p><span>Top Level Domain:</span> {{country === undefined ? '' : country.topLevelDomain[0]}}</p>
+                    <p><span>Currencies:</span> {{getNames(country === undefined ? [] : country.currencies)}}</p>
+                    <p><span>Languages:</span> {{getNames(country === undefined ? [] :country.languages)}}</p>
                 </div>
             </div>
-            <div class="border-span"><h4>Border Countries:</h4>
-                <button class="border-div" v-for="(border, index) in country.borders" :key="index">
-                    {{countryCodes[border]}}
+            <div class="border-span" :if="country !== undefined">
+                <h4>Border Countries:</h4>
+                <button
+                    :class="isDarkMode ? 'dark-element' : 'light-element'" 
+                    class="border-div" 
+                    v-for="(border, index) in getData()" 
+                    :key="index"
+                    @click="$emit('nearbyCountry', countryCodes[border])">
+                        {{countryCodes[border]}}
                 </button>
-                <p v-if="country.borders.length === 0">None</p>
+                <p v-if="country === undefined ? false : country.borders.length === 0">None</p>
             </div>
         </div>
     </div>
@@ -34,7 +40,8 @@ export default {
     name: "CountryDetail",
     props: [
         "countryCodes",
-        "country"
+        "country",
+        "isDarkMode"
     ],
     methods: {
         getNames(objects) {
@@ -42,6 +49,9 @@ export default {
             objects.forEach(obj => names.push(obj.name));
             
             return names.join(", ");
+        },
+        getData() {
+            return this.country === undefined ? [] : this.country.borders
         },
     },
 }
@@ -54,9 +64,7 @@ export default {
         margin-top: 0;
     }
 
-
     .country-detail {
-        /* width: 100%; */
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
@@ -102,11 +110,25 @@ export default {
         font-weight: 600;
     }
 
-    .details div:first-child {
-        flex-grow: 1;
-    }
+    @media only screen and (max-width: 500px) {
+        .country-detail {
+            display: block;
+        }
 
-    .details div:last-child {
-        flex-grow: 1;
+        .country-detail > img {
+            width: 100%;
+        }
+
+        .details {
+            display: block;
+        }
+
+        .country-name {
+            margin-top: 30px;
+        }
+
+        .details div:last-child {
+            margin: 40px 0;
+        }
     }
 </style>

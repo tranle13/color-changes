@@ -1,7 +1,11 @@
 <template>
     <div class='country-wrap' v-if="countries">
         <button
-        @click="toDetail(country.name, countryCodes)" class='country' v-bind:key='country.numericCode' v-for='country in countries'>
+        :class="isDarkMode ? 'dark-element' : 'light-element'"
+        @click="toDetail(country.name, countryCodes)" 
+        class='country' 
+        v-bind:key="country.numericCode"
+        v-for='country in countries'>
             <div v-bind:style="{backgroundImage: `url(${country.flag})`}" alt='flag' class="image"/>
             <h1>{{country.name}}</h1>
             <p><span>Population:</span> {{localeString(country.population)}}</p>
@@ -21,7 +25,8 @@ export default {
     name: 'Country',
     props: [
         "countries",
-        "countryCodes"
+        "countryCodes",
+        "isDarkMode"
     ],
     methods: {
       toDetail(name, codes) {
@@ -36,13 +41,14 @@ export default {
 
 <style scoped>
     .country-wrap {
+        width: 100%;
         display: grid;
         grid-template-columns: repeat(5, .5fr);
         grid-gap: 65px;
         justify-content: center;
     }
     .country {
-        background: white;
+        min-height: 370px;
         box-shadow: 0 0 18px rgba(0, 0, 0, 0.08);
         border-radius: 5px;
         overflow: hidden;
@@ -56,7 +62,7 @@ export default {
         background-size: cover;
         background-repeat: no-repeat;
         margin-top: -25px;
-        background-position: -2px 5px;
+        background-position: 50% 50%;
     }
 
     .country p {

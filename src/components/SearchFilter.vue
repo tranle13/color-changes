@@ -1,22 +1,19 @@
 <template>
   <div class="search-filter">
-    <form class="search" :class="darkMode ? 'dark-element' : 'light-element'" v-if="!isDetail" v-on:submit.prevent="$emit('search', searchTerm)">
-      <ion-icon name="search-outline"></ion-icon>
-      <input type="text" placeholder="Search for a country..." v-model="searchTerm">
+    <form class="search" 
+      :class="isDarkMode ? 'dark-element' : 'light-element'" 
+      v-on:submit.prevent="$emit('search', searchTerm)">
+      <ion-icon :class="isDarkMode ? 'icon-dark' : 'icon-light'" name="search-outline"></ion-icon>
+      <input :class="isDarkMode ? 'icon-dark' : 'text-light'" type="text" placeholder="Search for a country..." v-model="searchTerm">
     </form>
 
-    <div class="filter" v-if="!isDetail">
+    <div class="filter">
       <v-select
       class="style-chooser"
       placeholder="Filter by Region"
       :options="['Africa', 'Americas', 'Asia', 'Europe', 'Oceania']"
       @input="$emit('getRegion', selected)" v-model="selected"
     />
-    </div>
-
-    <div class="back-button" v-if="isDetail" @click="$router.go(-1)">
-      <ion-icon name="arrow-back-outline"></ion-icon> 
-      <p>Back</p>           
     </div>
   </div>
 </template>
@@ -25,10 +22,9 @@
 import vSelect from "vue-select";
 
 export default {
-  name: 'SearchFilterBack',
+  name: 'SearchFilter',
   props: [
-    "isDetail",
-    "darkMode"
+    "isDarkMode"
   ],
   components: {
     vSelect
@@ -62,25 +58,30 @@ export default {
 </script>
 
 <style scoped>
-  .search-filter {
-    padding: 5% 5%;
-    display: flex;
-    justify-content: space-between;
-  }
-
   .search {
     display: flex;
     align-items: center;
     padding: 15px 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
     border-radius: 4px;
-    width: 35%;
+    min-width: 40%;
   }
 
   .search ion-icon {
-    color: gray;
     --ionicon-stroke-width: 60px;
     font-size: 19px;
+  }
+
+  .icon-light {
+    color: gray;
+  }
+
+  .icon-dark {
+    color: white;
+  }
+
+  .text-light {
+    color: #111517;
   }
 
   .search input {
@@ -88,25 +89,14 @@ export default {
     background: none;
     font-size: 15px;
     margin-left: 18px;
-    color: black;
+    flex-grow: 2;
+    min-width: 0;
   }
 
-  .back-button {
-    box-shadow: 0 0 10px rgba(0,0,0,0.13);
-    width: 130px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-
-  .back-button p {
-    margin-left: 8px;
-  }
-
-  .back-button ion-icon {
-    font-size: 20px;
+  @media only screen and (max-width:600px) {
+    .search {
+      width: 100%;
+      margin-bottom: 20px;
+    }
   }
 </style>

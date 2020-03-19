@@ -1,36 +1,36 @@
 <template>
   <div class="home">
-    <SearchFilterBack 
-      v-bind:isDarkMode="isDarkMode" 
-      v-bind:isDetail="isDetail" 
+    <SearchFilter
+      v-bind:isDarkMode="isDark" 
       v-on:ctrDetail="countryDetail" 
-      v-on:search="search" 
-      :bind:isDarkMode="isDarkMode"
+      v-on:search="search"
       v-on:getRegion="getRegion"/>
     <div class="countries component-padding">
-      <Country v-bind:countries='countries' v-on:detail="countryDetail" v-bind:countryCodes="countriesCodes"/>
+      <Country 
+        v-bind:isDarkMode="isDark"
+        v-bind:countries='countries' 
+        v-on:detail="countryDetail" 
+        v-bind:countryCodes="countriesCodes"/>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import SearchFilterBack from '@/components/SearchFilterBack';
+import SearchFilter from '@/components/SearchFilter';
 import Country from '../components/Country';
 import axios from 'axios';
 
 export default {
   name: 'Home',
   components: {
-    SearchFilterBack,
+    SearchFilter,
     Country
   },
   props: [
-    "isDarkMode"
+    "isDark"
   ],
   methods: {
     countryDetail(chosenCountry) {
-      this.isDetail = !this.isDetail;
       this.chosenCountry = chosenCountry;
     },
     search(term) {
@@ -56,7 +56,7 @@ export default {
     }
   },
   created() {  
-    console.log(this.isDarkMode);
+    console.log(this.isDark);
       
     axios.get("https://restcountries.eu/rest/v2/all")
     .then(res => {
@@ -64,6 +64,11 @@ export default {
       this.countries.forEach(country => this.countriesCodes[country.alpha3Code] = country.name);
     })
     .catch(err => console.log(err));
+  },
+  watch: {
+    isDark: function() {
+
+    }
   }
 }
 </script>

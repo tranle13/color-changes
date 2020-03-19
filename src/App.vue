@@ -1,9 +1,7 @@
 <template>
   <div id="app" :class="isDarkMode ? 'dark' : 'light'">
     <Header :class="isDarkMode ? 'dark' : 'light'" v-on:changeColorMode="changeColorMode" v-bind:isDarkMode="isDarkMode"/>
-    <!-- <router-link to="/"/> -->
-    <!-- <router-view/> -->
-    <router-view isDarkMode="isDarkMode"></router-view>
+    <router-view v-bind="isDark"></router-view>
   </div>
 </template>
 
@@ -18,18 +16,29 @@ export default {
   methods: {
     changeColorMode() {
       this.isDarkMode = !this.isDarkMode
-      localStorage.setItem("darkTheme", this.isDarkMode);
+      document.documentElement.style.setProperty('--text-color', this.isDarkMode ? 'white' : '#111517');
+      document.documentElement.style.setProperty('--back-color', this.isDarkMode ? '#2b3945' : 'white');
     }
   },
   data() { 
     return {
       isDarkMode: false,
     }
+  },
+  computed: {
+    isDark() {
+      return {isDark: this.isDarkMode}
+    }
   }
 }
 </script>
 
 <style>
+  :root {
+    --text-color: #111517;
+    --back-color: white;
+  }
+
   #app {
     font-family: 'Nunito Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -50,7 +59,7 @@ export default {
 
   .dark-element {
     background: #2b3945;
-    color: white;
+    color: white !important;
   }
 
   .light-element {
@@ -88,14 +97,28 @@ export default {
     cursor: pointer;
   }
 
+  .search-filter {
+    padding: 5% 5%;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+  }
+
   .style-chooser .vs__search::placeholder,
   .style-chooser .vs__dropdown-toggle,
   .style-chooser .vs__dropdown-menu {
-    background: white;
+    background: var(--back-color);
     border: none;
-    color: #394066;
-    text-transform: lowercase;
-    font-variant: small-caps;
+    color: var(--text-color);
+  }
+
+  .style-chooser .vs__dropdown-menu li, .style-chooser .vs__selected {
+    color: var(--text-color);
+  }
+
+  .style-chooser .vs__search {
+    font-size: 1em;
+    color: var(--text-color);
   }
 
   .style-chooser {
@@ -105,7 +128,7 @@ export default {
 
   .style-chooser .vs__dropdown-toggle {
     height: 50px;
-    width: 170px;
+    width: 190px;
   }
 
   .style-chooser .vs__selected-option {
@@ -114,6 +137,6 @@ export default {
 
   .style-chooser .vs__clear,
   .style-chooser .vs__open-indicator {
-    fill: #394066;
+    fill: var(--text-color);
   }
 </style>
