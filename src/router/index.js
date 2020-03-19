@@ -9,11 +9,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    // props: 
-    // {
-    //   default: {darkMode: false},
-    //   isDarkMode: {darkMode: false}
-    // }
+
   },
   {
     path: '/country-detail',

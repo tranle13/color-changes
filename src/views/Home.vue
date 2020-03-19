@@ -8,7 +8,7 @@
     <div class="countries component-padding">
       <Country 
         v-bind:isDarkMode="isDark"
-        v-bind:countries='countries' 
+        v-bind:countries="countries" 
         v-on:detail="countryDetail" 
         v-bind:countryCodes="countriesCodes"/>
     </div>
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import SearchFilter from '@/components/SearchFilter';
-import Country from '../components/Country';
-import axios from 'axios';
+import SearchFilter from "@/components/SearchFilter";
+import Country from "../components/Country";
+import axios from "axios";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     SearchFilter,
     Country

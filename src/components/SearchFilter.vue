@@ -22,7 +22,7 @@
 import vSelect from "vue-select";
 
 export default {
-  name: 'SearchFilter',
+  name: "SearchFilter",
   props: [
     "isDarkMode"
   ],
@@ -52,7 +52,7 @@ export default {
     },
   },
   mounted(){
-    this.$emit('input', this.selected);
+    this.$emit("input", this.selected);
   }
 }
 </script>

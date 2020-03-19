@@ -6,18 +6,18 @@
 </template>
 
 <script>
-import Header from './components/Header';
+import Header from "./components/Header";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header
   },
   methods: {
     changeColorMode() {
       this.isDarkMode = !this.isDarkMode
-      document.documentElement.style.setProperty('--text-color', this.isDarkMode ? 'white' : '#111517');
-      document.documentElement.style.setProperty('--back-color', this.isDarkMode ? '#2b3945' : 'white');
+      document.documentElement.style.setProperty("--text-color", this.isDarkMode ? "white" : "#111517");
+      document.documentElement.style.setProperty("--back-color", this.isDarkMode ? "#2b3945" : "white");
     }
   },
   data() { 
@@ -40,7 +40,7 @@ export default {
   }
 
   #app {
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: "Nunito Sans", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
@@ -89,7 +89,7 @@ export default {
   }
 
   input, button {
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: "Nunito Sans", sans-serif;
     outline: none;
   }
 
